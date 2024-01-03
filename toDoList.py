@@ -1,6 +1,6 @@
 import json
 
-#add_tasks
+
 def load_tasks():
     try:
         with open('tasks.json', 'r') as file:
@@ -13,6 +13,7 @@ def save_tasks(tasks):
     with open('tasks.json', 'w') as file:
         json.dump(tasks, file)
 
+#add_tasks
 def add_task(name, description):
     tasks = load_tasks()
     task = {'name': name, 'description': description, 'status': 'Incomplete'}
@@ -31,7 +32,7 @@ def list_tasks():
             print(f"{index}. {task['name']} - {task['status']}")
 
 #List incomplete Tasks NEW FEATURE
-def list_tasks(show_completed=False):
+def list_incomplete_tasks(show_completed=False):
     tasks = load_tasks()
     if not tasks:
         print('No tasks found.')
@@ -78,7 +79,9 @@ def main():
               '2. List all tasks\n'
               '3. Mark a task as completed\n'
               '4. Clear the entire to-do list\n'
-              '5. Quit')
+              '5. List all incomplete tasks\n'
+              '6. Edit a task\n'
+              '7. Quit')
 
         choice = input('Enter your choice (1-5): ')
 
@@ -94,6 +97,14 @@ def main():
         elif choice == '4':
             clear_tasks()
         elif choice == '5':
+            list_incomplete_tasks(show_completed=False)
+        elif choice == '6':
+            list_tasks()
+            task_index = int(input('Enter the index of the task to edit: '))
+            new_name = input('Enter the new task name: ')
+            new_description = input('Enter the new task description: ')
+            edit_task(task_index, new_name, new_description)
+        elif choice == '7':
             print('Exiting the To-Do List Manager. Goodbye!')
             break
         else:
