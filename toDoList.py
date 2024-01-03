@@ -1,5 +1,6 @@
 import json
 
+#add_tasks
 def load_tasks():
     try:
         with open('tasks.json', 'r') as file:
@@ -19,6 +20,7 @@ def add_task(name, description):
     save_tasks(tasks)
     print(f'Task "{name}" added successfully!')
 
+#List tasks
 def list_tasks():
     tasks = load_tasks()
     if not tasks:
@@ -28,6 +30,18 @@ def list_tasks():
         for index, task in enumerate(tasks, start=1):
             print(f"{index}. {task['name']} - {task['status']}")
 
+#List incomplete Tasks NEW FEATURE
+def list_tasks(show_completed=False):
+    tasks = load_tasks()
+    if not tasks:
+        print('No tasks found.')
+    else:
+        print('To-Do List:')
+        for index, task in enumerate(tasks, start=1):
+            if show_completed or task['status'] == 'Incomplete':
+                print(f"{index}. {task['name']} - {task['status']}")
+
+#Mark task ass completed
 def mark_complete(task_index):
     tasks = load_tasks()
     if 1 <= task_index <= len(tasks):
@@ -37,6 +51,18 @@ def mark_complete(task_index):
     else:
         print('Invalid task index.')
 
+#Edit task NEW FEATURE
+def edit_task(task_index, new_name, new_description):
+    tasks = load_tasks()
+    if 1 <= task_index <= len(tasks):
+        tasks[task_index - 1]['name'] = new_name
+        tasks[task_index - 1]['description'] = new_description
+        save_tasks(tasks)
+        print(f'Task edited successfully.')
+    else:
+        print('Invalid task index.')
+
+#Clear all tasks
 def clear_tasks():
     confirmation = input('Are you sure you want to clear the entire to-do list? (yes/no): ')
     if confirmation.lower() == 'yes':
