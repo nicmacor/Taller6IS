@@ -59,4 +59,13 @@ Feature: To do list manager
     @toDoList
     Scenario: Edit tasks in the to-do list
     Given the to-do list contains tasks
-    
+    To-Do List:
+    1. Buy groceries - Incomplete
+    2.- Pay bills - Incomplete
+    When user edit a task 1
+    Given the new mane "Exercise"
+    Then the new list should contain
+    To-Do List:
+    1. Exercise - Incomplete
+    2.- Pay bills - Incomplete
+
