@@ -30,6 +30,7 @@ def list_tasks():
         print('To-Do List:')
         for index, task in enumerate(tasks, start=1):
             print(f"{index}. {task['name']} - {task['status']}")
+    return tasks
 
 #List incomplete Tasks NEW FEATURE
 def list_incomplete_tasks(show_completed=False):
@@ -41,16 +42,28 @@ def list_incomplete_tasks(show_completed=False):
         for index, task in enumerate(tasks, start=1):
             if show_completed or task['status'] == 'Incomplete':
                 print(f"{index}. {task['name']} - {task['status']}")
+    return tasks
 
 #Mark task ass completed
 def mark_complete(task_index):
     tasks = load_tasks()
     if 1 <= task_index <= len(tasks):
-        tasks[task_index - 1]['status'] = 'Complete'
+        tasks[task_index - 1]['status'] = 'Completed'
         save_tasks(tasks)
         print(f'Task "{tasks[task_index - 1]["name"]}" marked as complete.')
     else:
         print('Invalid task index.')
+
+
+def get_task(nombre):
+    tasks=load_tasks()
+    for index, task in enumerate(tasks, start=1):
+            if task['name'] == nombre:
+                return task
+            else:
+                return None
+
+
 
 #Edit task NEW FEATURE
 def edit_task(task_index, new_name, new_description):
@@ -83,7 +96,7 @@ def main():
               '6. Edit a task\n'
               '7. Quit')
 
-        choice = input('Enter your choice (1-5): ')
+        choice = input('Enter your choice (1-7): ')
 
         if choice == '1':
             name = input('Enter task name: ')
