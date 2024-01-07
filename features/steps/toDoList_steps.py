@@ -1,7 +1,4 @@
 from behave import given, when, then
-from toDoList import *
-
-todo_list = ToDoList()
 
 #1.The user wants to add a task
 @given('the to do list is empty')
@@ -28,7 +25,7 @@ def step_tasks_exist_in_to_do_list(context):
 def step_user_list_all_tasks(context):
     context.listOutput = list_tasks()
 
-@then('the output should contain')
+@then('the output should contain all taks')
 def step_should_see_list_of_tasks(context):
     assert context.listOutput is not None, f"No tasks were listed"
 
@@ -48,7 +45,7 @@ def step_task_should_be_marked_completed(context, task_index):
 def step_user_list_all_incompleted_tasks(context):
     context.list_incomplete_output = list_incomplete_tasks()
 
-@then('the output should contain')
+@then('the output should contain all incompleted tasks')
 def step_should_see_list_of_tasks(context):
     assert context.list_incomplete_output is not None, f"No tasks were listed"
 
